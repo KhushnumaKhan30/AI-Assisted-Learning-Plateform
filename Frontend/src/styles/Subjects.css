@@ -1,0 +1,150 @@
+
+.subjects-page {
+  width: 100%;
+}
+
+.subjects-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.subjects-heading h1 {
+  font-size: 26px;
+  color: #20243A;
+  margin-bottom: 8px;
+}
+
+.subjects-heading p {
+  color: #777B90;
+  font-size: 14px;
+}
+
+.subjects-heading span {
+  background: #EEEAFB;
+  color: #8175C7;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.subject-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E9F0;
+  border-radius: 14px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.subject-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(32, 36, 58, 0.08);
+}
+
+.subject-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.subject-icon.purple {
+  background: #EEEAFB;
+  color: #8175C7;
+}
+
+.subject-icon.blue {
+  background: #E5F0FF;
+  color: #3985E8;
+}
+
+.subject-icon.green {
+  background: #E1F7F0;
+  color: #00A982;
+}
+
+.subject-icon.orange {
+  background: #FFF0E5;
+  color: #F28A45;
+}
+
+.subject-card h2 {
+  font-size: 18px;
+  color: #20243A;
+  margin-bottom: 10px;
+}
+
+.subject-card > p {
+  color: #777B90;
+  font-size: 13px;
+  line-height: 1.7;
+  min-height: 44px;
+  margin-bottom: 20px;
+}
+
+.subject-details {
+  display: flex;
+  gap: 22px;
+  padding: 15px 0;
+  border-top: 1px solid #EEEFF3;
+  border-bottom: 1px solid #EEEFF3;
+  margin-bottom: 18px;
+}
+
+.subject-details span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #777B90;
+  font-size: 12px;
+}
+
+.explore-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #8175C7;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.explore-btn:hover {
+  background: #7063B5;
+}
+
+@media (max-width: 900px) {
+  .subjects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .subjects-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .subject-card {
+    padding: 18px;
+  }
+}

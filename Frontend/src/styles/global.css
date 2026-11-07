@@ -1,0 +1,17 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #F5F6FA;
+  color: #292D3E;
+}
+
+button,
+input {
+  font-family: inherit;
+}

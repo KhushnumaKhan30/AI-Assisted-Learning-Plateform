@@ -1,4 +1,3 @@
-
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -7,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Subjects from "./pages/Subjects";
 import MyLearning from "./pages/MyLearning";
 import Quiz from "./pages/Quiz";
+import Progress from "./pages/Progress";
 
 function App() {
   return (
@@ -48,11 +48,17 @@ function App() {
           </DashboardLayout>
         }
       />
+
+      <Route
+        path="/progress"
+        element={
+          <DashboardLayout>
+            <Progress />
+          </DashboardLayout>
+        }
+      />
     </Routes>
   );
 }
 
 export default App;
-
-
-

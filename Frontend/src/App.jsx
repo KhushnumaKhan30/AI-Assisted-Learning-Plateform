@@ -7,6 +7,7 @@ import Subjects from "./pages/Subjects";
 import MyLearning from "./pages/MyLearning";
 import Quiz from "./pages/Quiz";
 import Progress from "./pages/Progress";
+import AIAssistant from "./pages/AIAssistant";
 
 function App() {
   return (
@@ -54,6 +55,15 @@ function App() {
         element={
           <DashboardLayout>
             <Progress />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/ai-assistant"
+        element={
+          <DashboardLayout>
+            <AIAssistant />
           </DashboardLayout>
         }
       />

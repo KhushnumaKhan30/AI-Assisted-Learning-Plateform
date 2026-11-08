@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import generateToken from "../utils/generateToken.js";
 
 // Register a new user account.
 export const registerUser = async (req, res) => {
@@ -78,17 +79,22 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    // Return the user's basic account details.
-    res.status(200).json({
-      success: true,
-      message: "Login successful!",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    });
+   
+    // Generate an authentication token for the logged-in user.
+const token = generateToken(user._id);
+
+// Return the token and user's basic account details.
+res.status(200).json({
+  success: true,
+  message: "Login successful!",
+  token,
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  },
+});
   } catch (error) {
     res.status(500).json({
       success: false,

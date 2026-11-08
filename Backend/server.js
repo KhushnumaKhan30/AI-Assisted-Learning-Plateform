@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
 
 // Load environment variables from the .env file.
 dotenv.config();
@@ -18,6 +19,9 @@ app.use(cors({
 
 // Parse incoming JSON request bodies.
 app.use(express.json());
+
+// Connect authentication endpoints to the Express server.
+app.use("/api/auth", userRoutes);
 
 // Define a basic route to check whether the server is running.
 app.get("/", (req, res) => {

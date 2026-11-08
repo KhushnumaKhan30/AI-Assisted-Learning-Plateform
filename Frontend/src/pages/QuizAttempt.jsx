@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Clock,
@@ -10,9 +10,27 @@ import {
 
 import "../styles/QuizAttempt.css";
 
+
 function QuizAttempt() {
   const navigate = useNavigate();
   const { quizId } = useParams();
+  const [timeLeft, setTimeLeft] = useState(15 * 60);
+
+  useEffect(() => {
+  if (timeLeft <= 0) return;
+
+  const timer = setInterval(() => {
+    setTimeLeft((prevTime) => prevTime - 1);
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [timeLeft]);
+
+
+const minutes = Math.floor(timeLeft / 60);
+const seconds = timeLeft % 60;
+
+const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   // Temporary questions. Later, these will come from the database.
   const questions = [
@@ -97,6 +115,12 @@ function QuizAttempt() {
     });
   };
 
+  useEffect(() => {
+  if (timeLeft === 0) {
+    handleSubmit();
+  }
+}, [timeLeft]);
+
   const question = questions[currentQuestion];
   const answeredCount = Object.keys(answers).length;
 
@@ -118,7 +142,7 @@ function QuizAttempt() {
 
         <div className="quiz-timer">
           <Clock size={18} />
-          <span>15:00</span>
+          <span>{formattedTime}</span>
         </div>
       </div>
 

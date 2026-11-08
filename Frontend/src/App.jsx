@@ -8,6 +8,8 @@ import MyLearning from "./pages/MyLearning";
 import Quiz from "./pages/Quiz";
 import Progress from "./pages/Progress";
 import AIAssistant from "./pages/AIAssistant";
+import QuizAttempt from "./pages/QuizAttempt";
+import QuizResult from "./pages/QuizResult";
 
 function App() {
   return (
@@ -64,6 +66,24 @@ function App() {
         element={
           <DashboardLayout>
             <AIAssistant />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/quiz/:quizId"
+        element={
+          <DashboardLayout>
+            <QuizAttempt />
+          </DashboardLayout>
+        }
+      />
+
+      <Route
+        path="/quiz-result/:quizId"
+        element={
+          <DashboardLayout>
+            <QuizResult />
           </DashboardLayout>
         }
       />

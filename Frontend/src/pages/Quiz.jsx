@@ -1,4 +1,3 @@
-
 import {
   ClipboardList,
   Clock,
@@ -8,6 +7,7 @@ import {
 } from "lucide-react";
 
 import "../styles/Quiz.css";
+import { useNavigate } from "react-router-dom";
 
 const quizzes = [
   {
@@ -53,6 +53,7 @@ const quizzes = [
 ];
 
 function Quiz() {
+  const navigate = useNavigate();
   return (
     <div className="quiz-page">
       <div className="quiz-heading">
@@ -127,9 +128,12 @@ function Quiz() {
               </span>
             </div>
 
-            <button className="start-quiz-btn">
+            <button
+              className="start-quiz-btn"
+              onClick={() => navigate(`/quiz/${quiz.id}`)}
+            >
               Start Quiz
-              <ArrowRight size={17} />
+              <ArrowRight size={16} />
             </button>
           </div>
         ))}

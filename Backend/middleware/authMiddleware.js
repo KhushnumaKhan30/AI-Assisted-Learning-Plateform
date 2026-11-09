@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 // Verify the JWT token before allowing access to protected routes.
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -13,14 +14,27 @@ const authMiddleware = (req, res, next) => {
       });
     }
 
-    // Extract the token from the Bearer authorization header.
+    // Extract the token from the authorization header.
     const token = authHeader.split(" ")[1];
 
     // Verify the token using the application's secret key.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Attach the authenticated user's ID to the request.
-    req.user = { id: decoded.id };
+    // Find the authenticated user in the database.
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User account not found.",
+      });
+    }
+
+    // Attach the authenticated user's ID and role to the request.
+    req.user = {
+      id: user._id,
+      role: user.role,
+    };
 
     next();
   } catch (error) {

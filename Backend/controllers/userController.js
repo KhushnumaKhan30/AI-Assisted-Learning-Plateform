@@ -102,3 +102,36 @@ res.status(200).json({
     });
   }
 };
+
+
+// Retrieve the profile of the authenticated user.
+export const getProfile = async (req, res) => {
+  try {
+    // Find the user using the ID attached by authentication middleware.
+    const user = await User.findById(req.user.id);
+
+    // Check whether the user still exists.
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    // Return the authenticated user's profile.
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve user profile.",
+    });
+  }
+};

@@ -9,6 +9,7 @@ import topicRoutes from "./routes/topicRoutes.js";
 import learningContentRoutes from "./routes/learningContentRoutes.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
+import quizAttemptRoutes from "./routes/quizAttemptRoutes.js";
 
 // Load environment variables from the .env file.
 dotenv.config();
@@ -42,6 +43,9 @@ app.use("/api/quizzes", quizRoutes);
 
 // Connect question endpoints to the Express server.
 app.use("/api/questions", questionRoutes);
+
+// Connect quiz attempt endpoints to the Express server.
+app.use("/api/quiz-attempts", quizAttemptRoutes);
 
 // Define a basic route to check whether the server is running.
 app.get("/", (req, res) => {

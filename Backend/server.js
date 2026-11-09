@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import subjectRoutes from "./routes/subjectRoutes.js";
+import topicRoutes from "./routes/topicRoutes.js";
 
 // Load environment variables from the .env file.
 dotenv.config();
@@ -26,6 +27,9 @@ app.use("/api/auth", userRoutes);
 
 // Connect subject endpoints to the Express server.
 app.use("/api/subjects", subjectRoutes);
+
+// Connect topic endpoints to the Express server.
+app.use("/api/topics", topicRoutes);
 
 // Define a basic route to check whether the server is running.
 app.get("/", (req, res) => {

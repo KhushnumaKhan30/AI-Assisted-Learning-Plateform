@@ -1,6 +1,8 @@
+
 import QuizAttempt from "../models/QuizAttempt.js";
 import Quiz from "../models/Quiz.js";
 import Question from "../models/Question.js";
+import Progress from "../models/Progress.js";
 
 // Submit a quiz and calculate the student's score.
 export const submitQuizAttempt = async (req, res) => {
@@ -38,8 +40,7 @@ export const submitQuizAttempt = async (req, res) => {
     // Evaluate each submitted answer.
     const evaluatedAnswers = questions.map((question) => {
       const submittedAnswer = answers.find(
-        (answer) =>
-          answer.questionId === question._id.toString()
+        (answer) => answer.questionId === question._id.toString()
       );
 
       const selectedAnswer = submittedAnswer?.selectedAnswer || "";
@@ -69,6 +70,40 @@ export const submitQuizAttempt = async (req, res) => {
       completedAt: new Date(),
       status: "completed",
     });
+
+    // Find the student's progress record for this quiz's topic.
+    const progress = await Progress.findOne({
+      student: req.user.id,
+      topic: quiz.topic,
+    });
+
+    // Update quiz statistics if a progress record exists.
+    if (progress) {
+      const topicQuizzes = await Quiz.find({
+        topic: quiz.topic,
+      }).distinct("_id");
+
+      const attempts = await QuizAttempt.find({
+        student: req.user.id,
+        quiz: { $in: topicQuizzes },
+        status: "completed",
+      });
+
+      // Calculate the average percentage across all completed attempts.
+      const totalPercentage = attempts.reduce(
+        (sum, item) =>
+          sum + (item.score / item.totalQuestions) * 100,
+        0
+      );
+
+      progress.quizzesAttempted = attempts.length;
+      progress.averageScore = Math.round(
+        totalPercentage / attempts.length
+      );
+      progress.lastAccessedAt = new Date();
+
+      await progress.save();
+    }
 
     // Prepare the result with correct answers and explanations.
     const results = questions.map((question) => {

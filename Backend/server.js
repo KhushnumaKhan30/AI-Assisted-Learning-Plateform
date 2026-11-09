@@ -12,6 +12,7 @@ import questionRoutes from "./routes/questionRoutes.js";
 import quizAttemptRoutes from "./routes/quizAttemptRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
 import recommendationRoutes from "./routes/recommendationRoutes.js";
+import aiInteractionRoutes from "./routes/aiInteractionRoutes.js";
 
 // Load environment variables from the .env file.
 dotenv.config();
@@ -54,6 +55,9 @@ app.use("/api/progress", progressRoutes);
 
 // Connect recommendation endpoints to the Express server.
 app.use("/api/recommendations", recommendationRoutes);
+
+// Connect AI interaction routes.
+app.use("/api/ai-interactions", aiInteractionRoutes);
 
 // Define a basic route to check whether the server is running.
 app.get("/", (req, res) => {

@@ -1,5 +1,7 @@
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 import {
   LayoutDashboard,
   BookOpen,
@@ -15,43 +17,27 @@ import {
 import "../styles/Sidebar.css";
 
 function Sidebar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  // Clear authentication data and redirect to the login page.
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   const menuItems = [
-    {
-      title: "Dashboard",
-      path: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Subjects",
-      path: "/subjects",
-      icon: BookOpen,
-    },
-    {
-      title: "My Learning",
-      path: "/learning",
-      icon: GraduationCap,
-    },
-    {
-      title: "Quizzes",
-      path: "/quiz",
-      icon: ClipboardList,
-    },
-    {
-      title: "My Progress",
-      path: "/progress",
-      icon: ChartNoAxesColumnIncreasing,
-    },
-    {
-      title: "AI Assistant",
-      path: "/ai-assistant",
-      icon: Bot,
-    },
+    { title: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+    { title: "Subjects", path: "/subjects", icon: BookOpen },
+    { title: "My Learning", path: "/learning", icon: GraduationCap },
+    { title: "Quizzes", path: "/quiz", icon: ClipboardList },
+    { title: "My Progress", path: "/progress", icon: ChartNoAxesColumnIncreasing },
+    { title: "AI Assistant", path: "/ai-assistant", icon: Bot },
   ];
 
   return (
     <aside className="sidebar">
-
-      {/* Logo Section */}
+      {/* Display the application logo and name. */}
       <div className="sidebar-logo">
         <div className="logo-icon">
           <Brain size={25} />
@@ -63,7 +49,7 @@ function Sidebar() {
         </div>
       </div>
 
-      {/* Navigation Menu */}
+      {/* Display navigation links for application pages. */}
       <div className="sidebar-menu">
         <p className="menu-heading">MAIN MENU</p>
 
@@ -85,21 +71,26 @@ function Sidebar() {
         })}
       </div>
 
-      {/* Bottom Menu */}
+      {/* Display settings and logout options. */}
       <div className="sidebar-bottom">
         <NavLink to="/settings" className="menu-item">
           <Settings size={20} />
           <span>Settings</span>
         </NavLink>
 
-        <button className="menu-item logout-button">
+        <button
+          className="menu-item logout-button"
+          onClick={handleLogout}
+        >
           <LogOut size={20} />
           <span>Logout</span>
         </button>
       </div>
-
     </aside>
   );
 }
 
 export default Sidebar;
+
+
+

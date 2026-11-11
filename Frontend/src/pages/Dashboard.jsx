@@ -8,10 +8,31 @@ import {
   PlayCircle,
   Brain
 } from "lucide-react";
+import { useEffect } from "react";
+import api from "../services/api";
 
 import "../styles/Dashboard.css";
+import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
+
+  const { user } = useAuth();
+
+
+  // Fetch the logged-in student's progress from the backend.
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const response = await api.get("/progress/my-progress");
+        console.log("Student Progress:", response.data);
+      } catch (error) {
+        console.error("Progress Fetch Error:", error);
+      }
+    };
+
+    fetchProgress();
+  }, []);
+
   const stats = [
     {
       title: "Enrolled Subjects",
@@ -70,7 +91,7 @@ function Dashboard() {
       {/* Welcome Section */}
       <section className="welcome-section">
         <div>
-          <h1>Welcome back, Student! 👋</h1>
+          <h1>Welcome back, {user?.name || "Student"}! 👋</h1>
           <p>
             Continue your learning journey and achieve your goals.
           </p>
